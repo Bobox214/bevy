@@ -68,7 +68,7 @@ impl SharedBuffers {
             Some(RenderResourceBinding::Buffer {
                 buffer: destination_buffer,
                 range: 0..size as u64,
-                dynamic_index: None,
+                dynamic_index: Some(0),
             })
         } else {
             None

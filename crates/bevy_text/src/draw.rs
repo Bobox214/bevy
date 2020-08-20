@@ -6,7 +6,7 @@ use bevy_render::{
     color::Color,
     draw::{Draw, DrawContext, DrawError, Drawable},
     mesh,
-    pipeline::PipelineSpecialization,
+    pipeline::{DynamicBinding, PipelineSpecialization},
     prelude::Msaa,
     renderer::{
         AssetRenderResourceBindings, BindGroup, BufferUsage, RenderResourceBindings,
@@ -49,6 +49,19 @@ impl<'a> Drawable for DrawableText<'a> {
             bevy_sprite::SPRITE_SHEET_PIPELINE_HANDLE,
             &PipelineSpecialization {
                 sample_count: self.msaa.samples,
+                dynamic_bindings: vec![
+                    // Transform
+                    DynamicBinding {
+                        bind_group: 2,
+                        binding: 0,
+                    },
+                    // TextureAtlasSprite
+                    DynamicBinding {
+                        bind_group: 2,
+                        binding: 1,
+                    },
+                ],
+
                 ..Default::default()
             },
         )?;
